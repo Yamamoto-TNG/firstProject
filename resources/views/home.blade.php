@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', '自動販売機管理システム')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -18,7 +20,7 @@
                                 <th>在庫数</th>
                                 <th>メーカー名</th>
                                 <th>
-                                    <a type="button" class="btn btn-info" href="">新規登録</a>
+                                    <a type="button" class="btn btn-info" href="{{ url('/regist') }}">新規登録</a>
                                 </th>
                             </tr>
                         </thead>

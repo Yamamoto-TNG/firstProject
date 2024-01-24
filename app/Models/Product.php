@@ -14,4 +14,15 @@ class Product extends Model
     
         return $products;
     }
+    public function registProduct($data) {
+        // 登録処理
+        DB::table('products')->insert([
+            'product_name' => $data->productName,
+            'Company_id' => $data->CompanyId,
+            'price' => $data->price,
+            'stock' => $data->stock,
+            'comment' => $data->comment,
+            'img_pathnt' => $data->imgPath,
+        ]);
+    }
 }
