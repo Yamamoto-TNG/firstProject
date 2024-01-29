@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id(); // bigint(20) の ID
-            $table->unsignedBigInteger('company_id');
+            $table->foreignId('company_id')->constrained();
             $table->string('product_name', 255);
             $table->integer('price'); // int(11)
             $table->integer('stock'); // int(11)

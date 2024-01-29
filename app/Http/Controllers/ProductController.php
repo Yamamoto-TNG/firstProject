@@ -14,7 +14,7 @@ class ProductController extends Controller
         $model = new Product();
         $products = $model->getList();
 
-        return view('home', ['products' => $products]);
+        return view('home', compact('products'));
     }
     public function showRegistForm() {
         return view('regist');
@@ -34,8 +34,14 @@ class ProductController extends Controller
             return back();
         }
     
-        // 処理が完了したらregistにリダイレクト
-        return redirect(route('regist'));
+        // 処理が完了したらhomeにリダイレクト
+        return redirect(route('home'));
+    }
+    public function show($id)
+    {
+        $product = Product::find($id);
+
+        return view('show', compact('product'));
     }
 }
 

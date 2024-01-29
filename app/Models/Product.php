@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
     public function getList() {
         // articlesテーブルからデータを取得
         $products = DB::table('products')->get();
@@ -17,12 +21,12 @@ class Product extends Model
     public function registProduct($data) {
         // 登録処理
         DB::table('products')->insert([
-            'product_name' => $data->productName,
-            'Company_id' => $data->CompanyId,
+            'product_name' => $data->product_name,
+            'company_id' => $data->company_id,
             'price' => $data->price,
             'stock' => $data->stock,
             'comment' => $data->comment,
-            'img_pathnt' => $data->imgPath,
+            'img_path' => $data->img_path,
         ]);
     }
 }

@@ -32,9 +32,9 @@
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->stock }}</td>
-                                <td>{{ $product->company_id }}</td>
+                                <td>{{ $product->company->company_name }}</td>
                                 <td>
-                                    <a type="button" class="btn btn-outline-warning" href="">詳細</a>
+                                    <a class="btn btn-outline-warning" href="{{ route('show', ['id'=>$product->id]) }}">詳細</a>
                                     <button type="button" class="btn btn-outline-danger">削除</button>
                                 </td>
                             </tr>
