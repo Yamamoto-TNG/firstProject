@@ -34,8 +34,14 @@
                                 <td>{{ $product->stock }}</td>
                                 <td>{{ $product->company->company_name }}</td>
                                 <td>
-                                    <a class="btn btn-outline-warning" href="{{ route('show', ['id'=>$product->id]) }}">詳細</a>
-                                    <button type="button" class="btn btn-outline-danger">削除</button>
+                                    <div class="d-flex">
+                                        <a class="btn btn-outline-warning"
+                                            href="{{ route('detail', ['id'=>$product->id]) }}">詳細</a>
+                                        <form action="{{ route('delete', ['id'=>$product->id]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="ms-2 btn btn-outline-danger">削除</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -47,4 +53,3 @@
     </div>
 </div>
 @endsection
-

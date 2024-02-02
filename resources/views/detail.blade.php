@@ -25,7 +25,7 @@
                         <div class="row mb-3">
                             <label for="drpCompanyId" class="col-sm-2 col-form-label">メーカー</label>
                             <div class="col-sm-10">
-                                <p class="form-control-plaintext">{{ $product->company_id }}</p>
+                                <p class="form-control-plaintext">{{ $product->company->company_name }}</p>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -46,6 +46,7 @@
                                 <p class="form-control-plaintext">{{ $product->comment }}</p>
                             </div>
                         </div>
+                        <a href="{{ route('edit', ['id'=>$product->id]) }}" class="btn btn-primary">編集</a>
                         <a href="{{ url('/home') }}" class="btn btn-primary">戻る</a>
                     </form>
                     </form>

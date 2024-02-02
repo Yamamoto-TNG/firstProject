@@ -12,12 +12,7 @@ class Product extends Model
     {
         return $this->belongsTo(Company::class);
     }
-    public function getList() {
-        // articlesテーブルからデータを取得
-        $products = DB::table('products')->get();
-    
-        return $products;
-    }
+
     public function registProduct($data) {
         // 登録処理
         DB::table('products')->insert([
@@ -28,5 +23,20 @@ class Product extends Model
             'comment' => $data->comment,
             'img_path' => $data->img_path,
         ]);
+    }
+    public function updateProduct($data){
+        // 更新処理
+        DB::table('products')->where('id', $data->id)->update([
+            'product_name' => $data->product_name,
+            'company_id' => $data->company_id,
+            'price' => $data->price,
+            'stock' => $data->stock,
+            'comment' => $data->comment,
+            'img_path' => $data->img_path,
+        ]);
+    }
+    public function deleteProduct($id){
+        // 削除処理
+        DB::table('products')->where('id', $id)->delete();
     }
 }

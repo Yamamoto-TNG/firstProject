@@ -20,6 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\ProductController::class, 'showList'])->name('home');
+Route::post('/delete/{id}', [App\Http\Controllers\ProductController::class, 'submitDeleteButton'])->name('delete');
+
 Route::get('/regist',[App\Http\Controllers\ProductController::class, 'showRegistForm'])->name('regist');
 Route::post('/regist',[App\Http\Controllers\ProductController::class, 'registSubmit'])->name('submit');
-Route::get('/show/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('show');
+
+Route::get('/detail/{id}', [App\Http\Controllers\ProductController::class, 'showDetail'])->name('detail');
+
+Route::get('/edit/{id}', [App\Http\Controllers\ProductController::class, 'showEdit'])->name('edit');
+Route::post('/update/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('update');
