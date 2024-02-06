@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
-    public function company()
-    {
+
+    use HasFactory;
+
+    public function company() {
         return $this->belongsTo(Company::class);
     }
 
-    public function registProduct($data) {
+    public function registProduct($data, $img_path) {
         // 登録処理
         DB::table('products')->insert([
             'product_name' => $data->product_name,
@@ -21,10 +23,10 @@ class Product extends Model
             'price' => $data->price,
             'stock' => $data->stock,
             'comment' => $data->comment,
-            'img_path' => $data->img_path,
+            'img_path' => $img_path,
         ]);
     }
-    public function updateProduct($data){
+    public function editProduct($data, $img_path){
         // 更新処理
         DB::table('products')->where('id', $data->id)->update([
             'product_name' => $data->product_name,
@@ -32,7 +34,7 @@ class Product extends Model
             'price' => $data->price,
             'stock' => $data->stock,
             'comment' => $data->comment,
-            'img_path' => $data->img_path,
+            'img_path' => $img_path,
         ]);
     }
     public function deleteProduct($id){

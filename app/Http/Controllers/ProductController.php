@@ -16,19 +16,16 @@ class ProductController extends Controller
 
         return view('home', compact('products'));
     }
+
     // 新規登録画面
     public function showRegistForm() {
         $companies = Company::all();
+
         return view('regist', compact('companies'));
     }
-    // 編集画面
-    public function showEdit($id) {
-        $product = Product::find($id);
-        $companies = Company::all();
-        return view('edit', compact('product'), compact('companies'));
-    }
-    // 新規登録画面
-    public function registSubmit(ProductRequest $request) {
+
+    public function submitRegistform(ProductRequest $request) {
+        $img_path = productImagPath::getImgPath($request->file('img_path'), $request->id);
 
         // トランザクション開始
         DB::beginTransaction();
@@ -36,7 +33,7 @@ class ProductController extends Controller
         try {
             // 登録処理呼び出し
             $model = new Product();
-            $model->registProduct($request);
+            $model->registProduct($request, $img_path);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -48,7 +45,15 @@ class ProductController extends Controller
     }
 
     // 編集登録画面
-    public function update(ProductRequest $request) {
+    public function showEditForm($id) {
+        $product = Product::find($id);
+        $companies = Company::all();
+
+        return view('edit', compact('product'), compact('companies'));
+    }
+
+    public function submitEditForm(ProductRequest $request, $id) {
+        $img_path = ProductImgPath::getImgPath($request->file('img_path'), $request->id);
 
         // トランザクション開始
         DB::beginTransaction();
@@ -56,7 +61,7 @@ class ProductController extends Controller
         try {
             // 登録処理呼び出し
             $model = new Product();
-            $model->updateProduct($request);
+            $model->editProduct($request, $img_path);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -64,8 +69,9 @@ class ProductController extends Controller
         }
     
         // 処理が完了したらhomeにリダイレクト
-        return redirect(route('home'));
+        return redirect()->route('detail', compact('id'));
     }
+
     // 削除処理
     public function submitDeleteButton($id) {
 
@@ -82,15 +88,7 @@ class ProductController extends Controller
             return back();
         }
         // 処理が完了したらhomeにリダイレクト
-        return redirect(route('home'));
-    }
-
-    // 詳細画面
-    public function showDetail($id)
-    {
-        $product = Product::find($id);
-
-        return view('detail', compact('product'));
+        return redirect()->route('home');
     }
 }
 

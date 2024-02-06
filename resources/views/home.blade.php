@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('商品一覧') }}</div>
+                <div class="card-header">{{ __('商品情報一覧画面') }}</div>
 
                 <div class="card-body">
                     <table class="table">
@@ -19,16 +19,14 @@
                                 <th>価格</th>
                                 <th>在庫数</th>
                                 <th>メーカー名</th>
-                                <th>
-                                    <a type="button" class="btn btn-info" href="{{ url('/regist') }}">新規登録</a>
-                                </th>
+                                <th><a type="button" class="btn btn-info" href="{{ route('regist') }}">新規登録</a></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($products as $product)
                             <tr>
                                 <td>{{ $product->id }}</td>
-                                <td><img src="{{ $product->img_path }}" alt=""></td>
+                                <td><img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}" width="100" height="100" class="img-thumbnail"></td>
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->stock }}</td>
@@ -39,7 +37,7 @@
                                             href="{{ route('detail', ['id'=>$product->id]) }}">詳細</a>
                                         <form action="{{ route('delete', ['id'=>$product->id]) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="ms-2 btn btn-outline-danger">削除</button>
+                                            <button type="submit" onclick="return confirm('【{{$product->product_name}}】を削除しますか？')" class="ms-2 btn btn-outline-danger">削除</button>
                                         </form>
                                     </div>
                                 </td>

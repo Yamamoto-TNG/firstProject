@@ -13,7 +13,7 @@
                     <div class="row mb-3">
                         <label for="formFile" class="col-sm-2 col-form-label">商品画像</label>
                         <div class="col-sm-10">
-                            <p class="form-control-plaintext"><img  src="{{ $product->img_path }}"></p>
+                            <p class="form-control-plaintext"><img  src="{{ $product->img_path }}" class="img-thumbnail"></p>
                         </div>
                     </div>
                         <div class="row mb-3">
