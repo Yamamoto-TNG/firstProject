@@ -68,8 +68,8 @@
                             <label for="fileImgPath" class="col-sm-2 col-form-label">商品画像</label>
                             <div class="col-sm-10">
                                 <input type="file" id="fileImgPath" name="img_path">
-                                @if ($errors->has('img_path')) class="form-control is-invalid"
-                                @else class="form-control"
+                                @if($errors->has('img_path'))
+                                <p>{{ $errors->first('img_path') }}</p>
                                 @endif
                             </div>
                         </div>

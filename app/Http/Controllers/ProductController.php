@@ -25,7 +25,18 @@ class ProductController extends Controller
     }
 
     public function submitRegistform(ProductRequest $request) {
-        $img_path = productImagPath::getImgPath($request->file('img_path'), $request->id);
+        //①画像ファイルの取得
+        $img = $request->file('img_path');
+
+        //②画像ファイルのファイル名を取得
+        // $file_name = $img->getClientOriginalName();
+        $file_name = 'product_img_' . sprintf('%03d', $request->id) . '.' . $img->getClientOriginalExtension();
+
+        //③storage/app/public/imagesフォルダ内に、取得したファイル名で保存
+        $img->storeAs('public/images', $file_name);
+
+        //④データベース登録用に、ファイルパスを作成
+        $img_path = 'storage/images/' . $file_name;
 
         // トランザクション開始
         DB::beginTransaction();
@@ -33,6 +44,7 @@ class ProductController extends Controller
         try {
             // 登録処理呼び出し
             $model = new Product();
+            //⑤モデルのregistArticle関数を呼び出し。
             $model->registProduct($request, $img_path);
             DB::commit();
         } catch (\Exception $e) {
