@@ -9,16 +9,17 @@
             <div class="card">
                 <div class="card-header">{{ __('商品情報編集画面') }}</div>
 
-                <div class="card-body"></div>
-                    <form action="{{ route('update', ['id'=>$product->id]) }}" method="POST" enctype="multipart/form-data">
+                <div class="card-body">
+                    <form action="{{ route('update', ['id'=>$product->id]) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
                             <label for="formFile" class="col-sm-2 col-form-label">商品画像</label>
                             <div class="col-sm-10">
                                 <input type="file" id="fileImgPath" name="img_path">
-                                @if($errors->has('img_path')) class="form-control is-invalid"
-                                @else class="form-control"
+                                @if($errors->has('img_path'))
+                                <p>{{ $errors->first('img_path') }}</p>
                                 @endif
                             </div>
                         </div>
@@ -82,8 +83,8 @@
                             {{ __('更新') }}
                         </button>
                         <a href="{{ url('/home') }}" class="btn btn-primary">戻る</a>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

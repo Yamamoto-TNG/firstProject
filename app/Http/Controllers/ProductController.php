@@ -28,15 +28,18 @@ class ProductController extends Controller
         //①画像ファイルの取得
         $img = $request->file('img_path');
 
-        //②画像ファイルのファイル名を取得
-        // $file_name = $img->getClientOriginalName();
-        $file_name = 'product_img_' . sprintf('%03d', $request->id) . '.' . $img->getClientOriginalExtension();
+        if ($img) {
+            //②画像ファイルのファイル名を取得
+            $file_name = $img->getClientOriginalName();
 
-        //③storage/app/public/imagesフォルダ内に、取得したファイル名で保存
-        $img->storeAs('public/images', $file_name);
+            //③storage/app/public/imagesフォルダ内に、取得したファイル名で保存
+            $img->storeAs('public/images', $file_name);
 
-        //④データベース登録用に、ファイルパスを作成
-        $img_path = 'storage/images/' . $file_name;
+            //④データベース登録用に、ファイルパスを作成
+            $img_path = 'storage/images/' . $file_name;
+        } else {
+            $img_path = null;
+        }
 
         // トランザクション開始
         DB::beginTransaction();
@@ -65,7 +68,21 @@ class ProductController extends Controller
     }
 
     public function submitEditForm(ProductRequest $request, $id) {
-        $img_path = ProductImgPath::getImgPath($request->file('img_path'), $request->id);
+        //①画像ファイルの取得
+        $img = $request->file('img_path');
+
+        if ($img) {
+            //②画像ファイルのファイル名を取得
+            $file_name = $img->getClientOriginalName();
+
+            //③storage/app/public/imagesフォルダ内に、取得したファイル名で保存
+            $img->storeAs('public/images', $file_name);
+
+            //④データベース登録用に、ファイルパスを作成
+            $img_path = 'storage/images/' . $file_name;
+        } else {
+            $img_path = null;
+        }
 
         // トランザクション開始
         DB::beginTransaction();
@@ -100,7 +117,15 @@ class ProductController extends Controller
             return back();
         }
         // 処理が完了したらhomeにリダイレクト
-        return redirect()->route('home');
+        return redirect(route('home'));
+    }
+
+    // 詳細画面
+    public function showDetail($id)
+    {
+        $product = Product::find($id);
+
+        return view('detail', compact('product'));
     }
 }
 
