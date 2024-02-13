@@ -8,8 +8,33 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('商品情報一覧画面') }}</div>
-
                 <div class="card-body">
+                    <!-- 検索フォームのセクション -->
+                    <div class="search mt-2">
+                        <!-- 検索フォーム。GETメソッドで、商品一覧のルートにデータを送信 -->
+                        <form action="{{ route('home') }}" method="GET" class="row g-3">
+                            <!-- 商品名検索用の入力欄 -->
+                            <div class="col-sm-5">
+                                <input type="text" name="search" class="form-control" placeholder="商品名"
+                                    value="{{ request('search') }}">
+                            </div>
+                            <!-- メーカー名検索用の選択欄 -->
+                            <div class="col-sm-5">
+                                <select class="form-select" aria-label="Default select example" id="drpCompanyId"
+                                    name="company_id">
+                                    <option value="">Open this select menu</option>
+                                    @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}" @if((int)request('company_id')===$company->id)
+                                        selected @endif>{{ $company->company_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- 絞り込みボタン -->
+                            <div class="col-sm-2 d-grid">
+                                <button class="btn btn-outline-secondary" type="submit">絞り込み</button>
+                            </div>
+                        </form>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -26,7 +51,8 @@
                             @foreach ($products as $product)
                             <tr>
                                 <td>{{ $product->id }}</td>
-                                <td><img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}" width="100" height="100" class="img-thumbnail"></td>
+                                <td><img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}"
+                                        width="100" height="100" class="img-thumbnail"></td>
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->stock }}</td>
@@ -37,7 +63,9 @@
                                             href="{{ route('detail', ['id'=>$product->id]) }}">詳細</a>
                                         <form action="{{ route('delete', ['id'=>$product->id]) }}" method="POST">
                                             @csrf
-                                            <button type="submit" onclick="return confirm('【{{$product->product_name}}】を削除しますか？')" class="ms-2 btn btn-outline-danger">削除</button>
+                                            <button type="submit"
+                                                onclick="return confirm('【{{$product->product_name}}】を削除しますか？')"
+                                                class="ms-2 btn btn-outline-danger">削除</button>
                                         </form>
                                     </div>
                                 </td>
@@ -45,6 +73,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>
