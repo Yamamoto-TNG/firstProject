@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class Product extends Model
 {
@@ -24,6 +25,8 @@ class Product extends Model
             'stock' => $data->stock,
             'comment' => $data->comment,
             'img_path' => $img_path,
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime(),
         ]);
     }
     public function editProduct($data, $img_path){
@@ -36,6 +39,7 @@ class Product extends Model
                 'stock' => $data->stock,
                 'comment' => $data->comment,
                 'img_path' => $img_path,
+                'updated_at' => new DateTime(),
             ]);
         } else {
             DB::table('products')->where('id', $data->id)->update([
@@ -44,6 +48,7 @@ class Product extends Model
                 'price' => $data->price,
                 'stock' => $data->stock,
                 'comment' => $data->comment,
+                'updated_at' => new DateTime(),
             ]);
         }
         
