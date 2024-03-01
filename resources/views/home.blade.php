@@ -31,7 +31,7 @@
                             </div>
                             <!-- 絞り込みボタン -->
                             <div class="col-sm-2 d-grid">
-                                <button class="btn btn-outline-secondary" type="submit">絞り込み</button>
+                                <button class="btn btn-outline-secondary js-search-btn" type="button">絞り込み</button>
                             </div>
                         </form>
                     </div>

@@ -144,6 +144,15 @@ class ProductController extends Controller
 
         return view('detail', compact('product'));
     }
+
+    // 非同期
+    public function getProductsBySearchKeyword(Request $request)
+    {
+        $searchCompanyId = $request->company_id;
+        $products = Product::where('company_id', $searchCompanyId)->get();
+        
+        return response()->json($products);
+    }
 }
 
 

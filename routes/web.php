@@ -41,6 +41,9 @@ Auth::routes();
 // 商品情報一覧画面
 Route::get('/home', [App\Http\Controllers\ProductController::class, 'showList'])->name('home')->middleware('auth');
 Route::post('/delete/{id}', [App\Http\Controllers\ProductController::class, 'submitDeleteButton'])->name('delete');
+// 非同期処理
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'getProductsBySearchKeyword']);
+
 
 // 商品情報登録画面
 Route::get('/regist',[App\Http\Controllers\ProductController::class, 'showRegistForm'])->name('regist')->middleware('auth');
@@ -52,3 +55,4 @@ Route::get('/detail/{id}', [App\Http\Controllers\ProductController::class, 'show
 // 商品情報編集画面
 Route::get('/edit/{id}', [App\Http\Controllers\ProductController::class, 'showEditForm'])->name('edit')->middleware('auth');
 Route::post('/edit/{id}', [App\Http\Controllers\ProductController::class, 'submitEditForm'])->name('update');
+
