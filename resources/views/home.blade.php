@@ -15,12 +15,12 @@
                         <form action="{{ route('home') }}" method="GET" class="row g-3">
                             <!-- 商品名検索用の入力欄 -->
                             <div class="col-sm-5">
-                                <input type="text" name="search" class="form-control" placeholder="商品名"
+                                <input type="text" name="search" class="form-control js-search-keyword" placeholder="商品名"
                                     value="{{ request('search') }}">
                             </div>
                             <!-- メーカー名検索用の選択欄 -->
                             <div class="col-sm-5">
-                                <select class="form-select" aria-label="Default select example" id="drpCompanyId"
+                                <select class="form-select js-search-company-id" aria-label="Default select example" id="drpCompanyId"
                                     name="company_id">
                                     <option value="">Open this select menu</option>
                                     @foreach ($companies as $company)
