@@ -15,8 +15,8 @@
                         <form action="{{ route('home') }}" method="GET" class="row g-3">
                             <!-- 商品名検索用の入力欄 -->
                             <div class="col-sm-5">
-                                <input type="text" name="search" class="form-control js-search-keyword" placeholder="商品名"
-                                    value="{{ request('search') }}">
+                                <input type="text" name="keyword" class="form-control js-search-keyword" placeholder="商品名"
+                                    value="{{ request('keyword') }}">
                             </div>
                             <!-- メーカー名検索用の選択欄 -->
                             <div class="col-sm-5">
@@ -73,7 +73,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $products->links() }}
                 </div>
             </div>
         </div>

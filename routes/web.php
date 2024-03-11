@@ -42,7 +42,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\ProductController::class, 'showList'])->name('home')->middleware('auth');
 Route::post('/delete/{id}', [App\Http\Controllers\ProductController::class, 'submitDeleteButton'])->name('delete');
 // 非同期処理
-Route::get('/search', [App\Http\Controllers\ProductController::class, 'getProductsBySearchKeyword']);
+Route::get('/search', [App\Http\Controllers\ProductController::class, 'getProductsBySearch'])->name('search');
 
 
 // 商品情報登録画面
