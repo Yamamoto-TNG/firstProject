@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 // "Route"というツールを使うために必要な部品を取り込んでいます。
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CompanyController;
 // ProductControllerに繋げるために取り込んでいます
 use Illuminate\Support\Facades\Auth;
 // "Auth"という部品を使うために取り込んでいます。この部品はユーザー認証（ログイン）に関する処理を行います
@@ -43,6 +44,7 @@ Route::get('/home', [App\Http\Controllers\ProductController::class, 'showList'])
 Route::post('/delete/{id}', [App\Http\Controllers\ProductController::class, 'submitDeleteButton'])->name('delete');
 // 非同期処理
 Route::get('/search', [App\Http\Controllers\ProductController::class, 'getProductsBySearch'])->name('search');
+Route::get('getCompanyName/{company_id}', [App\Http\Controllers\CompanyController::class, 'getCompanyName']);
 
 
 // 商品情報登録画面
