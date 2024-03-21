@@ -34,7 +34,7 @@ $(function () {
                                 <td>${data[i].price}</td>
                                 <td>${data[i].stock}</td>
                                 <td>${companyData.company_name}</td>
-                                <td class="d-flex"><a class="btn btn-outline-warning" href="/firstProject/public/detail/${data[i].id}">詳細</a></td>
+                                <div class="d-flex"><td><a class="btn btn-outline-warning" href="/firstProject/public/detail/${data[i].id}">詳細</a></td></div>
                             </tr>
                         `;
                         $('.js-tbody').append(html);

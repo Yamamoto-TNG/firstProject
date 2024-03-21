@@ -21,14 +21,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     // ウェブサイトのホームページ（'/'のURL）にアクセスした場合のルートです
-    if (Auth::check()) {
-        // ログイン状態ならば
-        return redirect()->route('products.index');
-        // 商品一覧ページ（ProductControllerのindexメソッドが処理）へリダイレクトします
-    } else {
-        // ログイン状態でなければ
-        return redirect()->route('login');
-    }
+    return redirect()->route('home');
 });
 
 Auth::routes();

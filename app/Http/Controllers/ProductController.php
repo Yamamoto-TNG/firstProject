@@ -7,13 +7,14 @@ use App\Models\Product;
 use App\Models\Company;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\DB;
+// use Kyslik\ColumnSortable\Sortable;
 
 class ProductController extends Controller
 {
     // 一覧
     public function showList() {
         $companies = Company::all();
-        $products = Product::all();
+        $products = Product::sortable()->get();
 
         return view('home', compact('products'), compact('companies'));
     }

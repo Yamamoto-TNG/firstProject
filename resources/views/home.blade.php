@@ -38,38 +38,38 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th scope="col">@sortablelink('id', 'ID')</th>
                                 <th>商品画像</th>
-                                <th>商品名</th>
-                                <th>価格</th>
-                                <th>在庫数</th>
-                                <th>メーカー名</th>
+                                <th scope="col">@sortablelink('product_name', '商品名')</th>
+                                <th scope="col">@sortablelink('price', '価格')</th>
+                                <th scope="col">@sortablelink('stock', '在庫数')</th>
+                                <th scope="col">@sortablelink('company.company_name', 'メーカー名')</th>
                                 <th><a type="button" class="btn btn-info" href="{{ route('regist') }}">新規登録</a></th>
                             </tr>
                         </thead>
                         <tbody class="js-tbody">
                             @foreach ($products as $product)
-                            <tr>
-                                <td>{{ $product->id }}</td>
-                                <td><img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}"
-                                        width="100" height="100" class="img-thumbnail"></td>
-                                <td>{{ $product->product_name }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->stock }}</td>
-                                <td>{{ $product->company->company_name }}</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a class="btn btn-outline-warning"
-                                            href="{{ route('detail', ['id'=>$product->id]) }}">詳細</a>
-                                        <form action="{{ route('delete', ['id'=>$product->id]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit"
-                                                onclick="return confirm('【{{$product->product_name}}】を削除しますか？')"
-                                                class="ms-2 btn btn-outline-danger">削除</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td scope="row">{{ $product->id }}</td>
+                                    <td><img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}"
+                                            width="100" height="100" class="img-thumbnail"></td>
+                                    <td>{{ $product->product_name }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->stock }}</td>
+                                    <td>{{ $product->company->company_name }}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a class="btn btn-outline-warning"
+                                                href="{{ route('detail', ['id'=>$product->id]) }}">詳細</a>
+                                            <form action="{{ route('delete', ['id'=>$product->id]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    onclick="return confirm('【{{$product->product_name}}】を削除しますか？')"
+                                                    class="ms-2 btn btn-outline-danger">削除</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
