@@ -37,6 +37,23 @@ class ProductController extends Controller
             $query->where('company_id', $searchCompanyId);
         }
 
+        // 最小価格が指定されている場合、その価格以下の商品をクエリに追加
+        if($searchLowerPrice = $request->lower_price){
+            $query->where('price', '>=', $searchLowerPrice);
+        }
+        // 最大価格が指定されている場合、その価格以上の商品をクエリに追加
+        if($searchUpperPrice = $request->upper_price){
+            $query->where('price', '<=', $searchUpperPrice);
+        }
+        // 最小在庫数が指定されている場合、その在庫数以下の商品をクエリに追加
+        if($searchLowerStock = $request->lower_stock){
+            $query->where('stock', '>=', $searchLowerStock);
+        }
+        // 最大在庫数が指定されている場合、その在庫数以上の商品をクエリに追加
+        if($searchUpperStock = $request->upper_stock){
+            $query->where('stock', '<=', $searchUpperStock);
+        }
+
         $products = $query->get();
 
         return response()->json($products);

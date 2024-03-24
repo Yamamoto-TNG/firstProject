@@ -4,15 +4,24 @@ $(function () {
     $searchButton.on("click", function () {
         // 処理内容
         $('.js-tbody').empty();
-        const keyword = $(".js-search-keyword").val();
-        const companyId = $(".js-search-company-id").val();
+        var keyword = $(".js-search-keyword").val();
+        var companyId = $(".js-search-company-id").val();
+        var lowerPrice = $(".js-search-lower-price").val();
+        var upperPrice = $(".js-search-upper-price").val();
+        var lowerStock = $(".js-search-lower-stock").val();
+        var upperStock = $(".js-search-upper-stock").val();
 
         $.ajax({
             type: 'GET',
             url: 'search',
             data: {
+                //ここはサーバーに贈りたい情報。今回は検索ファームのバリューを送りたい。
                 'keyword' : keyword,
-                'company_id': companyId, //ここはサーバーに贈りたい情報。今回は検索ファームのバリューを送りたい。
+                'company_id': companyId,
+                'lower_price' : lowerPrice,
+                'upper_price' : upperPrice,
+                'lower_stock' : lowerStock,
+                'upper_stock' : upperStock
             },
             dataType: 'json',
         })

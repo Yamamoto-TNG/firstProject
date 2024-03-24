@@ -29,6 +29,24 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <!-- 価格の下限上限 -->
+                            <div class="col-sm-5">
+                                <input type="number" name="lower_price" class="form-control js-search-lower-price" id="lowerPrice" placeholder="価格下限"
+                                value="{{ request('lower_price') }}">
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="number" name="upper_price" class="form-control js-search-upper-price" id="upperPrice" placeholder="価格上限"
+                                value="{{ request('upper_price') }}">
+                            </div>
+                            <!-- 在庫の下限上限 -->
+                            <div class="col-sm-5">
+                                <input type="number" name="lower_stock" class="form-control  js-search-lower-stock" id="lowerStock" placeholder="在庫数下限"
+                                value="{{ request('lower_stock') }}">
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="number" name="upper_stock" class="form-control  js-search-upper-stock" id="upperStock" placeholder="在庫数上限"
+                                value="{{ request('upper_stock') }}">
+                            </div>
                             <!-- 絞り込みボタン -->
                             <div class="col-sm-2 d-grid">
                                 <button class="btn btn-outline-secondary js-search-btn" type="button">絞り込み</button>
