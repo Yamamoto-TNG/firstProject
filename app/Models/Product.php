@@ -5,20 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Kyslik\ColumnSortable\Sortable;
 use DateTime;
 
 class Product extends Model
 {
-
     use HasFactory;
-    use Sortable;
-
-    public $sortable = ['id', 'product_name', 'price', 'stock','company.company_name'];
-
-    public function company() {
-        return $this->belongsTo(Company::class);
-    }
+        // 商品に関連する会社（メーカー）を表す関連を定義
+        public function company() {
+            return $this->belongsTo(Company::class);
+        }
 
     public function registProduct($data, $img_path) {
         // 登録処理

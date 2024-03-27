@@ -1,5 +1,10 @@
 $(function () {
-    const $searchButton = $('.js-search-btn')
+    const $searchButton = $('.js-search-btn');
+    $('.js-search-tablesort').tablesorter({
+        headers: {
+            '.js-btn-new': { sorter: false }
+        }
+     });
 
     $searchButton.on("click", function () {
         // 処理内容
@@ -47,6 +52,7 @@ $(function () {
                             </tr>
                         `;
                         $('.js-tbody').append(html);
+                        $(".js-search-tablesort").trigger("update");
                     })
                     .fail( () => {
                         console.log('failure');

@@ -53,22 +53,22 @@
                             </div>
                         </form>
                     </div>
-                    <table class="table">
+                    <table class="table js-search-tablesort">
                         <thead>
                             <tr>
-                                <th scope="col">@sortablelink('id', 'ID')</th>
+                                <th>ID</th>
                                 <th>商品画像</th>
-                                <th scope="col">@sortablelink('product_name', '商品名')</th>
-                                <th scope="col">@sortablelink('price', '価格')</th>
-                                <th scope="col">@sortablelink('stock', '在庫数')</th>
-                                <th scope="col">@sortablelink('company.company_name', 'メーカー名')</th>
-                                <th><a type="button" class="btn btn-info" href="{{ route('regist') }}">新規登録</a></th>
+                                <th>商品名</th>
+                                <th>価格</th>
+                                <th>在庫数</th>
+                                <th>メーカー名</th>
+                                <th><a type="button" class="btn btn-info js-btn-new" href="{{ route('regist') }}">新規登録</a></th>
                             </tr>
                         </thead>
                         <tbody class="js-tbody">
                             @foreach ($products as $product)
                                 <tr>
-                                    <td scope="row">{{ $product->id }}</td>
+                                    <td>{{ $product->id }}</td>
                                     <td><img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}"
                                             width="100" height="100" class="img-thumbnail"></td>
                                     <td>{{ $product->product_name }}</td>
