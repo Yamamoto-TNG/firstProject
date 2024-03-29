@@ -12,7 +12,7 @@
                     <!-- 検索フォームのセクション -->
                     <div class="search mt-2">
                         <!-- 検索フォーム。GETメソッドで、商品一覧のルートにデータを送信 -->
-                        <form action="{{ route('home') }}" method="GET" class="row g-3">
+                        <form action="{{ route('home') }}" method="GET" class="row g-3" onsubmit="return false;">
                             <!-- 商品名検索用の入力欄 -->
                             <div class="col-sm-5">
                                 <input type="text" name="keyword" class="form-control js-search-keyword" placeholder="商品名"
@@ -77,14 +77,9 @@
                                     <td>{{ $product->company->company_name }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a class="btn btn-outline-warning"
+                                            <a class="btn btn-outline-warning btn-sm"
                                                 href="{{ route('detail', ['id'=>$product->id]) }}">詳細</a>
-                                            <form action="{{ route('delete', ['id'=>$product->id]) }}" method="POST">
-                                                @csrf
-                                                <button type="submit"
-                                                    onclick="return confirm('【{{$product->product_name}}】を削除しますか？')"
-                                                    class="ms-2 btn btn-outline-danger">削除</button>
-                                            </form>
+                                            <button type="button" class="ms-2 btn btn-outline-danger btn-sm js-delete-btn" data-product-id="{{ $product->id }}" data-product-name="{{ $product->product_name }}">削除</button>
                                         </div>
                                     </td>
                                 </tr>

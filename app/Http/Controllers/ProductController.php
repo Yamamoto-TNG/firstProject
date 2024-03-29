@@ -18,7 +18,7 @@ class ProductController extends Controller
         return view('home', compact('products'), compact('companies'));
     }
 
-    // 非同期
+    // 検索　非同期
     public function getProductsBySearch(Request $request) {
 
         // Productモデルに基づいてクエリビルダを初期化
@@ -60,7 +60,6 @@ class ProductController extends Controller
 
     // 上記の条件(クエリ）に基づいて商品を取得し、10件ごとのページネーションを適用
         // $products = $query->paginate(3);
-
 
     // 新規登録画面
     public function showRegistForm() {

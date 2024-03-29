@@ -6,3 +6,28 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.tablesorter-header {
+	cursor: pointer;
+
+	&.sorter-false {
+		cursor: auto;
+	}
+
+	.tablesorter-header-inner::after {
+		font: var(--fa-font-solid);
+		content: " \f0dc";
+	}
+
+	&.tablesorter-headerAsc .tablesorter-header-inner::after {
+		content: " \f0de";
+	}
+
+	&.tablesorter-headerDesc .tablesorter-header-inner::after {
+		content: " \f0dd";
+	}
+
+	&.sorter-false .tablesorter-header-inner::after {
+		content: none;
+	}
+}

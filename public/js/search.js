@@ -1,5 +1,10 @@
 $(function () {
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': $("[name='csrf-token']").attr("content") }
+    });
+
     const $searchButton = $('.js-search-btn');
+    const $deleteButton = $('.js-delete-btn');
     $('.js-search-tablesort').tablesorter({
         headers: {
             '.js-btn-new': { sorter: false }
@@ -9,12 +14,12 @@ $(function () {
     $searchButton.on("click", function () {
         // 処理内容
         $('.js-tbody').empty();
-        var keyword = $(".js-search-keyword").val();
-        var companyId = $(".js-search-company-id").val();
-        var lowerPrice = $(".js-search-lower-price").val();
-        var upperPrice = $(".js-search-upper-price").val();
-        var lowerStock = $(".js-search-lower-stock").val();
-        var upperStock = $(".js-search-upper-stock").val();
+        const keyword = $(".js-search-keyword").val();
+        const companyId = $(".js-search-company-id").val();
+        const lowerPrice = $(".js-search-lower-price").val();
+        const upperPrice = $(".js-search-upper-price").val();
+        const lowerStock = $(".js-search-lower-stock").val();
+        const upperStock = $(".js-search-upper-stock").val();
 
         $.ajax({
             type: 'GET',
@@ -48,8 +53,12 @@ $(function () {
                                 <td>${data[i].price}</td>
                                 <td>${data[i].stock}</td>
                                 <td>${companyData.company_name}</td>
-                                <div class="d-flex"><td><a class="btn btn-outline-warning" href="/firstProject/public/detail/${data[i].id}">詳細</a></td></div>
-                            </tr>
+                                <div class="d-flex">
+                                <td><a class="btn btn-outline-warning btn-sm" href="/firstProject/public/detail/${data[i].id}">詳細</a>
+                                <button type="button" class="ms-2 btn btn-outline-danger btn-sm js-delete-btn" data-product-id="${data[i].id}" data-product-name="${data[i].product_name}">削除</button></td>
+                                </div>
+                                
+                                </tr>
                         `;
                         $('.js-tbody').append(html);
                         $(".js-search-tablesort").trigger("update");
@@ -63,4 +72,31 @@ $(function () {
                 console.log('failure');
             })
     });
+
+    $('body').on("click", '.js-delete-btn', function (e) {
+        const $this = $(this);
+        const productName = $this.attr('data-product-name');
+        const productId = $this.attr('data-product-id');
+
+        if (window.confirm(`【${productName}】を削除してよろしいでしょうか？`)) {
+
+    $.ajax({
+        type: 'post',
+        url: 'delete/' + productId,
+    })
+
+    .done(function() {
+        // 通信が成功した場合、クリックした要素の親要素の <tr> を削除
+        $this.parents('tr').remove();
+    })
+
+    .fail(function() {
+        alert('エラー');
+    });
+
+    } else {
+        e.preventDefault();
+    }
+
+    })
 });
