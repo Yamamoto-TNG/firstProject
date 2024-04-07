@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id(); // bigint(20) の ID
             $table->unsignedBigInteger('product_id');
             $table->timestamps(); // created_at と updated_at の timestamp
+
+            //外部キー制約を追加
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

@@ -10,10 +10,15 @@ use DateTime;
 class Product extends Model
 {
     use HasFactory;
-        // 商品に関連する会社（メーカー）を表す関連を定義
-        public function company() {
-            return $this->belongsTo(Company::class);
-        }
+
+    public function sales() {
+        return $this->hasMany(Sale::class);
+    }
+
+    // 商品に関連する会社（メーカー）を表す関連を定義
+    public function company() {
+        return $this->belongsTo(Company::class);
+    }
 
     public function registProduct($data, $img_path) {
         // 登録処理
