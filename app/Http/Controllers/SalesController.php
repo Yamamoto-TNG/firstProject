@@ -39,6 +39,22 @@ class SalesController extends Controller
 
     // レスポンスを返す
     return response()->json(['message' => '購入成功']);
+
+    // トランザクション開始
+    DB::beginTransaction();
+
+    try {
+        // 登録処理呼び出し
+        $model = new Sale();
+        $model->product($id);
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
+        return back();
+    }
+    // 処理が完了したらhomeにリダイレクト
+    return redirect(route('home'));
+
 }
 
 }

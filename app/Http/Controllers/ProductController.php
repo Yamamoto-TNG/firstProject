@@ -17,50 +17,17 @@ class ProductController extends Controller
 
         return view('home', compact('products'), compact('companies'));
     }
-
     // 検索　非同期
     public function getProductsBySearch(Request $request) {
 
         // Productモデルに基づいてクエリビルダを初期化
         $query = Product::query();
 
-        // この行の後にクエリを逐次構築していきます。
-        // そして、最終的にそのクエリを実行するためのメソッド（例：get(), first(), paginate() など）を呼び出すことで、データベースに対してクエリを実行します。
-
-        // 商品名の検索キーワードがある場合、そのキーワードを含む商品をクエリに追加
-        if($searchKeyword = $request->keyword){
-            $query->where('product_name', 'LIKE', "%{$searchKeyword}%");
-        }
-
-        if($searchCompanyId = $request->company_id){
-            $query->where('company_id', $searchCompanyId);
-        }
-
-        // 最小価格が指定されている場合、その価格以下の商品をクエリに追加
-        if($searchLowerPrice = $request->lower_price){
-            $query->where('price', '>=', $searchLowerPrice);
-        }
-        // 最大価格が指定されている場合、その価格以上の商品をクエリに追加
-        if($searchUpperPrice = $request->upper_price){
-            $query->where('price', '<=', $searchUpperPrice);
-        }
-        // 最小在庫数が指定されている場合、その在庫数以下の商品をクエリに追加
-        if($searchLowerStock = $request->lower_stock){
-            $query->where('stock', '>=', $searchLowerStock);
-        }
-        // 最大在庫数が指定されている場合、その在庫数以上の商品をクエリに追加
-        if($searchUpperStock = $request->upper_stock){
-            $query->where('stock', '<=', $searchUpperStock);
-        }
-
-        $products = $query->get();
+        // 検索用のスコープを適用
+        $products = $query->search($request)->get();
 
         return response()->json($products);
     }
-
-    // 上記の条件(クエリ）に基づいて商品を取得し、10件ごとのページネーションを適用
-        // $products = $query->paginate(3);
-
     // 新規登録画面
     public function showRegistForm() {
         $companies = Company::all();
@@ -171,6 +138,5 @@ class ProductController extends Controller
 
         return view('detail', compact('product'));
     }
-
 
 }
